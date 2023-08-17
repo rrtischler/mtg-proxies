@@ -3,8 +3,11 @@
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
   "editor.formatOnSave": true,
-  "python.formatting.provider": "black",
+  "python.formatting.provider": "none",
   "python.testing.pytestArgs": ["tests"],
   "python.testing.pytestEnabled": true,
-  "git.rebaseWhenSync": true
+  "git.rebaseWhenSync": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
 }

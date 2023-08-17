@@ -152,13 +152,14 @@ def parse_decklist_stream(stream) -> tuple[Decklist, bool, list]:
     warnings = []
     ok = True
     for line in stream:
-        m = re.search(r"([0-9]+)\s+(.+?)(?:\s+\((\S*)\)\s+(\S+))?\s*$", line)
+        m = re.search(r"([0-9]+)\s+(.+?)(?:\s*\((\S*)\)\s*(\S*)\s*(\S*))?\s*$", line)
         if m:
             # Extract relevant data
             count = int(m.group(1))
             card_name = m.group(2)
             set_id = m.group(3)  # May be None
             collector_number = m.group(4)  # May be None
+            # lang = m.group(5)  # May be None
 
             # Validate card name
             card_name, warnings_name = validate_card_name(card_name)
@@ -169,7 +170,7 @@ def parse_decklist_stream(stream) -> tuple[Decklist, bool, list]:
                 continue
 
             # Validate card print
-            card, warnings_print = validate_print(card_name, set_id, collector_number)
+            card, warnings_print = validate_print(card_name, set_id, collector_number, "PT")
 
             decklist.append_card(count, card)
             warnings.extend([(decklist.entries[-1], level, msg) for level, msg in warnings_name + warnings_print])
